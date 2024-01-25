@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Hackathon-Events by Atlas Lions</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand">
+                    <img src="static/images/lions.png" width="30" height="30" alt="Logo"> Atlas Lions
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        {% if session.username %}
+                        <!-- User is logged in -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user_bookings">Mes réservations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/book">Réserver un nouvel évènement</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/edit_profile">Modifier vos informations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Déconnexion</a>
+                        </li>
+                        {% else %}
+                        <!-- User is not logged in -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Inscription</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+            </div>
+        </nav>
+    </header>
+        
+    <main class="container mt-4">
+        <iframe src="https://data.nantesmetropole.fr/explore/embed/dataset/244400404_agenda-evenements-nantes-nantes-metropole/map/?disjunctive.emetteur&disjunctive.rubrique&disjunctive.lieu&disjunctive.ville&disjunctive.lieu_quartier&location=8,47.15097,-0.3024&basemap=jawg.streets&static=false&datasetcard=false&scrollWheelZoom=true" id="mapIframe"></iframe>  
+    </main>
+
+    <footer class="footer bg-dark text-white mt-4">
+        <div class="container text-center">
+            <h3>Bienvenu Dans Notre Site</h3>
+            <p>Explorez Nantes en toute simplicité grâce à notre site dédié aux étudiants.</p>
+            <p>Coordonnez-vous, restez informé et profitez au maximum des événements de la ville.</p>
+            <p>Votre hub pour une vie étudiante connectée et enrichie à Nantes.</p> 
+        </div>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add your JavaScript here -->
+</body>
+</html>
