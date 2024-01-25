@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modifier Votre Profile</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/edit_profile.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand">
+                <img src="static/images/lions.png" width="30" height="30" alt="Logo"> Atlas Lions
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user_bookings">Mes réservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/book">Réserver un nouvel évènement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </nav>
+</header>
+    <div class="edit-container">
+        <h2>Modification Du Profile</h2>
+        <form action="/edit_profile" method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="carowner">Possédez-vous une voiture et souhaitez-vous être contacté par une personne intéressée par le covoiturage ?</label>
+            <select id="carowner" name="carowner">
+                <option value="yes" {% if user.carowner == 'yes' %}selected{% endif %}>Oui</option>
+                <option value="no" {% if user.carowner == 'no' %}selected{% endif %}>Non</option>
+            </select>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sauvegarder les modifications">
+            </div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <script>
+                alert('{{ messages[0] }}');
+            </script>
+            {% endif %}
+            {% endwith %}
+        </form>
+    </div>
+</body>
+</html>
