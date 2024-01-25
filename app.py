@@ -158,8 +158,15 @@ def user_bookings():
             new_user = mongo.db.users.find_one({'username':user['username']})
             other_users_bookings[event_id].append([new_user['username'], new_user['email'], new_user['carowner']])
     bookings = mongo.db.booked_events.find({'username': username})
+    bookings_list = list(bookings)
 
-    return render_template('myevents.html', bookings=list(bookings), other_users_bookings=other_users_bookings)
+    for booking in bookings_list:
+        event_details = get_specific_event_details(booking['event_id'])
+        if event_details:
+            booking['date'] = event_details['date']
+            booking['media_url'] = event_details['media_url']
+
+    return render_template('myevents.html', bookings=bookings_list, other_users_bookings=other_users_bookings)
 
 
 @app.route('/delete/<int:event_id>')
@@ -209,7 +216,20 @@ def get_event_details(event_id):
                 }
                 return details
 
-
+def get_specific_event_details(event_id):
+    url = f'https://data.nantesmetropole.fr/api/explore/v2.1/catalog/datasets/244400404_agenda-evenements-nantes-nantes-metropole/records?select=*&where=%20id_manif%20={event_id}'
+    params = {
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        events = response.json().get('results')
+        for event in events:
+            if event['id_manif']==str(event_id):
+                details = {
+                    'date' : event['date'],
+                    'media_url' : event['media_url']
+                }
+                return details
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
